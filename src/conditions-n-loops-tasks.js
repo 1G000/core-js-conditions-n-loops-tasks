@@ -122,8 +122,30 @@ function isIsoscelesTriangle(a, b, c) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+function convertToRomanNumerals(num) {
+  let result = '';
+  let n = num;
+  while (n >= 10) {
+    result += 'X';
+    n -= 10;
+  }
+  if (n === 9) {
+    result += 'IX';
+    n -= 9;
+  }
+  if (n >= 5) {
+    result += 'V';
+    n -= 5;
+  }
+  if (n === 4) {
+    result += 'IV';
+    n -= 4;
+  }
+  while (n > 0) {
+    result += 'I';
+    n -= 1;
+  }
+  return result;
 }
 
 /**
@@ -300,8 +322,35 @@ function getBalanceIndex(/* arr */) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
+function getSpiralMatrix(size) {
+  let k = 0;
+  let n = 1;
+  const result = [];
+  for (let i = 0; i < size; i += 1) {
+    result[i] = [];
+  }
+  while (k < size / 2) {
+    for (let i = k; i < size - k; i += 1) {
+      result[k][i] = n;
+      n += 1;
+    }
+    for (let i = k + 1; i < size - k; i += 1) {
+      result[i][size - 1 - k] = n;
+      n += 1;
+    }
+    for (let i = size - k - 2; i > k - 1; i -= 1) {
+      result[size - 1 - k][i] = n;
+      n += 1;
+    }
+    for (let i = size - k - 2; i > k; i -= 1) {
+      result[i][k] = n;
+      n += 1;
+    }
+
+    k += 1;
+  }
+
+  return result;
 }
 
 /**
@@ -319,8 +368,23 @@ function getSpiralMatrix(/* size */) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-  throw new Error('Not implemented');
+function rotateMatrix(matrix) {
+  const result = [];
+  const m = matrix;
+  for (let i = 0; i < matrix.length; i += 1) {
+    for (let j = 0; j < matrix[i].length; j += 1) {
+      if (!result[j]) {
+        result[j] = [];
+      }
+      result[j][matrix[i].length - i - 1] = matrix[i][j];
+    }
+  }
+  for (let i = 0; i < matrix.length; i += 1) {
+    for (let j = 0; j < matrix[i].length; j += 1) {
+      m[i][j] = result[i][j];
+    }
+  }
+  return m;
 }
 
 /**
